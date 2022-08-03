@@ -19,19 +19,19 @@ export default function Form({ todoData, setTodoData, value, setValue }) {
     setValue("");
   };
   return (
-    <form onSubmit={handleSubmit} className="flex pt-2">
+    <form onSubmit={handleSubmit} className="flex pt-2 ">
       <input
         type="text"
         name="todoItem"
-        placeholder="새로운 할일을 입력하세요"
-        className="w-full px-3 py-2 mr-4 text-gray-500 border rounded shadow"
+        className=" w-full px-3 py-2 mr-4 text-gray-500 border rounded shadow font-sans  "
+        placeholder="Please enter a new to do"
         value={value}
         onChange={handleChange}
       />
       <input
         type="submit"
-        value="입력"
-        className="p-2 text-blue-400 border-blue-400 rounded hover:text-white hover:bg-blue-200"
+        className="p-2 text-blue-400 border-blue-400 rounded hover:text-white hover:bg-blue-200 font-sans"
+        value="Input"
       />
     </form>
   );

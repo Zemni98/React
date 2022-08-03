@@ -26,34 +26,73 @@ export default function Lists({ todoData, setTodoData }) {
     });
     setTodoData(newTodoData);
   };
+  const handleDrop = (e) => {
+    // e: event 객체, event에 대한 세부정보를 가지고 있다.
+    // e.source : drag한 객체, e.destination : drop한 객체
+    if (!e.destination) return;
+
+    const newTodoData = todoData;
+
+    // drag되는것을 삭제시키는 Code
+    const [reorder] = newTodoData.splice(e.source.index, 1);
+
+    // drop되는 위치에 삽입시키는 Code
+    newTodoData.splice(e.destination.index, 0, reorder);
+
+    setTodoData(newTodoData);
+  };
 
   return (
     <div>
-      <DragDropContext>
+      <DragDropContext onDragEnd={handleDrop}>
         <Droppable droppableId="to-do">
-          {todoData.map((data) => (
-            <Draggable>
-              <div key={data.id}>
-                <div className="flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded">
-                  <div className="items-center">
-                    <input
-                      type="checkbox"
-                      defaultChecked={false}
-                      onChange={() => handleCompleteChange(data.id)}
-                    />{" "}
-                    <span
-                      className={data.completed ? "line-through" : undefined}
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {todoData.map((data, index) => (
+                <Draggable
+                  key={data.id}
+                  draggableId={data.id.toString()}
+                  index={index}
+                >
+                  {(provided, snapshot) => (
+                    <div
+                      key={data.id}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                      {...provided.dragHandleProps}
                     >
-                      {data.title}
-                    </span>
-                  </div>
-                  <div className="items-center">
-                    <button onClick={() => deleteClick(data.id)}>delete</button>
-                  </div>
-                </div>
-              </div>
-            </Draggable>
-          ))}
+                      <div
+                        className={` ${
+                          snapshot.isDragging ? "bg-violet-200" : "bg-pink-100"
+                        } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600  border rounded font-mono`}
+                      >
+                        <div className="items-center">
+                          <input
+                            type="checkbox"
+                            defaultChecked={false}
+                            onChange={() => handleCompleteChange(data.id)}
+                          />{" "}
+                          <span
+                            className={
+                              data.completed ? "line-through" : undefined
+                            }
+                          >
+                            {data.title}
+                          </span>
+                        </div>
+                        <div className="items-center font-mono ">
+                          <button onClick={() => deleteClick(data.id)}>
+                            delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
         </Droppable>
       </DragDropContext>
     </div>

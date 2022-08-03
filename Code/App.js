@@ -11,14 +11,15 @@ export default function App() {
       id: "1",
       title: "Training",
       completed: false,
+      className: "font-mono",
     },
   ]);
   const [value, setValue] = useState("");
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
-      <div className="w-full p-6 m-4 bg-white rounded shadow md:w-3/4 md:max-w-lg lg:w-3/4 lg: max-w-lg">
-        <div className="flex justify-between mb-3">
+    <div className="flex items-center justify-center w-screen h-screen bg-blue-100 font-mono ">
+      <div className="w-full p-6 m-4 bg-white rounded shadow md:w-3/4 md:max-w-lg lg:w-3/4 lg: max-w-lg font-mono ">
+        <div className="flex justify-between mb-3 font-mono">
           <h2>What is your main focus for today?</h2>
         </div>
 
