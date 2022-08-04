@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function Form({ todoData, setTodoData, value, setValue }) {
+  console.log("Form Component");
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -13,6 +14,7 @@ export default function Form({ todoData, setTodoData, value, setValue }) {
       id: Date.now(), // Unique한 값을 표현하기 위해서 현재 시간을 찍는다.
       title: value,
       completed: false,
+      edited: false,
     };
 
     setTodoData([...todoData, newTodo]);

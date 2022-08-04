@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import Lists from "./components/Lists";
@@ -6,15 +6,32 @@ import Lists from "./components/Lists";
 // render() method가 존재하지 않는다.
 // 우리 함수의 return 값이 JSX이다.
 export default function App() {
+  console.log("App Component");
   const [todoData, setTodoData] = useState([
     {
       id: "1",
       title: "Training",
       completed: false,
-      className: "font-mono",
+      edited: false,
     },
   ]);
   const [value, setValue] = useState("");
+  const editClick = (id) => {
+    console.log(id + "edit Click!");
+    var ed = document.getElementById("edit");
+    ed.type = "text";
+    let x = document.getElementsByName("editBtn")[0];
+    x.innerText = "Save";
+    let Y = document.getElementsByName("titleSpan")[0];
+    Y.innerText = "";
+  };
+  const deleteClick = useCallback(
+    (id) => {
+      const newTodoData = todoData.filter((data) => data.id !== id);
+      setTodoData(newTodoData);
+    },
+    [todoData]
+  );
 
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-blue-100 font-mono ">
@@ -23,7 +40,12 @@ export default function App() {
           <h2>What is your main focus for today?</h2>
         </div>
 
-        <Lists todoData={todoData} setTodoData={setTodoData} />
+        <Lists
+          editClick={editClick}
+          deleteClick={deleteClick}
+          todoData={todoData}
+          setTodoData={setTodoData}
+        />
 
         <Form
           todoData={todoData}
