@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .container {
+  margin: auto;
+  max-width: 600px;
+}
+
+.todoBlock {
+  padding: 30px;
+  margin-top: 50px;
+  background-color: rgb(195, 177, 212);
+  color: aliceblue;
+  border-radius: 10px;
+  box-shadow: -9px 5px 15px rgb(0 0 0);
+} */
